@@ -1,0 +1,65 @@
+﻿@model HorizonSite.Models.HomeIndexViewModels
+
+
+<!-- News -->
+<section class="section-content pv12 bg-cover" data-bg-image="@Url.Content("~/Content/images/coming-bg.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 page-title mt5 mb5">
+                <h2 class="blog-title">Новости</h2>
+                <ol class="breadcrumb">
+                    <li><a href="/" class="active">Главная</a></li>
+                    <li><a href="~/Home/News">Новости</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- List News -->
+        <section>
+            <div class="row">
+                <div class="col-sm-12 ph0">
+                    <article class="blog-item featured">
+                        @foreach (var item in Model.RentedFilms)
+                        {
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="post-image" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")"></div>
+                            </div>
+
+                            <div class="col-sm-8 ml-r-15">
+                                <span class="featured_news">Свежие новости</span>
+                                <div class="overlay bg-cover" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")"></div>
+                                <div class="post-content">
+                                    <div class="entry-meta">
+                                        <ul class="category">
+
+                                            <li><a href="javascript:;">@item.DateStart.Value.ToShortDateString()</a></li>
+                                            <li><a href="javascript:;">Фильм</a></li>
+                                        </ul>
+                                        <div class="social-links">
+                                            <a href="https://www.instagram.com/gorizontcinema_emotion/"><i class="fa fa-instagram"></i></a>
+                                            <a href="https://www.facebook.com/gorizontcinema/"><i class="fa fa-facebook"></i></a>
+                                            <a href="https://vk.com/gorizont_cinema_emotion"><i class="fa fa-vk"></i></a>
+                                        </div>
+                                    </div>
+                                    <h2 class="entry-title"><a href="~/Home/Single/@item.FilmId">@item.NameFilm<i> @item.DateStart.Value.Year год </i></a></h2>
+                                    <p class="entry-excepts">@item.Company</p>
+
+                                    <div class="social-icon mt2">
+
+                                        <span>
+                                            <i class="fa fa-comment-o"></i>
+                                            @Model.CountReview.Where(w => w.FilmId == item.FilmId).Count()
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</section>

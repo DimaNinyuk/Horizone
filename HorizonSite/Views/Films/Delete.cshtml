@@ -1,0 +1,104 @@
+﻿@model HorizonSite.Models.Film
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Film</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre.NameGenre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre.NameGenre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameFilm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameFilm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IMDBRatffing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IMDBRatffing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RottenRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RottenRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkTriller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkTriller)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

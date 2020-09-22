@@ -1,0 +1,176 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model  HorizonSite.Models.HomeIndexViewModels
+
+<section class="section-content pv12 bg-cover" data-bg-image="@Url.Content("~/Content/images/blog/bg-single.jpg")">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <article class="blog-item single">
+                    @foreach (var item in Model.AllFilms)
+                    {
+                        <div class="col-md-4 col-sm12 post-image hover-dark" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")">
+                            <a href="@item.LinkTriller" class="video-player"><i class="fa fa-play"></i></a>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12 ph0">
+                            <div class="post-content bg-cover" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")">
+                                <div class="content-meta">
+                                    <h2 class="entry-title">
+                                        @item.NameFilm
+                                        <span>Описание</span>
+                                    </h2>
+                                    <div class="social-links">
+                                        <a href="https://www.instagram.com/gorizontcinema_emotion/"><i class="fa fa-instagram"></i></a>
+                                        <a href="https://www.facebook.com/gorizontcinema/"><i class="fa fa-facebook"></i></a>
+                                        <a href="https://vk.com/gorizont_cinema_emotion"><i class="fa fa-vk"></i></a>
+                                    </div>
+                                </div>
+
+                                <p class="entry-text">@item.Company</p>
+                                <div class="info-content">
+                                    <ul class="item-info">
+                                        <li><span>Прод-сть: </span> <p>@item.Duration мин.</p></li>
+                                        <li><span>Жанр: </span>  <p>@Model.listNameGenre.Where(w => w.GenreId == item.GenreId).Select(s => s.NameGenre).FirstOrDefault()</p></li>
+                                        <li>
+                                            <span>Режиссер: </span>
+                                            <p>
+                                                @foreach (var prod in Model.producersFilm.Where(w => w.FilmId == item.FilmId))
+                                                {
+                                                    <em>@prod.Producer.SNP.  </em>
+                                                }
+                                            </p>
+
+                                            @*<p>Timothy Miller</p>*@
+                                        </li>
+                                        <li>
+                                            <span>В ролях: </span>
+                                            <p>
+                                                @foreach (var actor in Model.actorFilm.Where(w => w.FilmId == item.FilmId))
+                                                {
+                                                    <em>@actor.Actor.SNP. </em>
+                                                }
+                                            </p>
+                                        </li>
+                                        <li><span>Дата выхода: </span>  <p>@item.DateStart.Value.ToShortDateString()</p></li>
+                                    </ul>
+                                    <div class="item-info-rate">
+                                        <div class="chart-cirle">
+                                            <div class="chart-circle-l" data-animation="animated bounceInUp">
+                                                <div class="circle-chart" data-circle-width="7" data-percent="@((double)item.IMDBRatffing.Value * 10)" data-text="@item.IMDBRatffing">
+                                                </div>
+                                                <span>IMDB Ratffing</span>
+                                            </div>
+                                            <div class="chart-circle-r" data-animation="animated bounceInUp">
+                                                <div class="circle-chart" data-circle-width="7" data-percent="@((double)item.RottenRating.Value * 10)" data-text="@item.RottenRating">
+                                                </div>
+                                                <span>Rotten Rating</span>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                @{var groupingSessions = Model.AllFilms.First().Sessions.Where(l=>l.Date>= DateTime.Now.Date).OrderBy(l=>l.Date).GroupBy(l => l.Date);
+                                    foreach (var itemSesion in groupingSessions)
+                                    {
+                                        var dayofweek = @itemSesion.Key.Value.Date == DateTime.Now.Date ? "Сегодня" : 
+                                            (@itemSesion.Key.Value.Date == DateTime.Now.Date.AddDays(1)? "Завтра": @itemSesion.Key.Value.ToShortDateString());
+                                        <div class="row">
+                                            <span style ="color:white">@dayofweek:</span>
+                                                @foreach (var itemSesionTime in itemSesion)
+                                                {
+                                                    <a style ="color:white; border:solid 1px; border-radius: 40px" href="/Home/Tickets?idsession=@itemSesionTime.SessionId" target="_blank"><i>@itemSesionTime.Time.Value.TimeOfDay.Hours:@itemSesionTime.Time.Value.TimeOfDay.Minutes</i></a>
+                                                }
+                                        </div>
+                                        @*<a href="#order" class="order_btn btn order text-right"> Купить билет</a>*@
+
+                                        }
+                                }
+                            </div>
+
+                        </div>
+                    }
+
+
+                </article>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="section-content pvb0">
+    <div class="container  pv8">
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="comments" class="comments-area">
+                    <div class="comments-wrapper">
+                        <h2 class="comments-title">Коментарии </h2>
+                        <ol class="comment-list">
+                            @foreach (var item in Model.AllFilms)
+                            {
+                                foreach (var itemReview in Model.LastTwoReviews.Where(w => w.FilmId == item.FilmId))
+                                {
+                                    <li>
+                                        <article>
+
+                                            <div class="comment-body">
+                                                <div class="meta-data">
+                                                    <p class="comment-author">@itemReview.Email @itemReview.Date.Value.ToShortDateString()</p>
+                                                </div>
+                                                <div class="comment-content">
+                                                    @itemReview.Text
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                }
+                            }
+
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row no-gutters my-5">
+                    <div class="col text-center">
+
+                        @Html.PagedListPager(Model.LastTwoReviews, page => Url.Action("Single", new { page }))
+
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-sm-6">
+                    <div id="respond" class="comment-respond">
+                        <h3 id="reply-title" class="comment-reply-title">Оставить комментарий</h3>
+                        <form id="commentform" class="comment-form" novalidate="">
+                            <div class="row">
+
+                                <p class="comment-form-email col-sm-6">
+                                    <input id="email" name="Email" type="email" value="" size="30" placeholder="E-mail *">
+                                </p>
+
+                            </div>
+                            <p class="comment-form-email col-sm-6" hidden="true">
+                                <input name="FilmId"  value="@ViewBag.FilmId" size="30">
+                            </p>
+                            <p class="comment-form-comment">
+                                <textarea id="comment" name="Text" placeholder="Comments"></textarea>
+                            </p>
+                            <p class="form-submit">
+                                <button type="submit" class="button fill rectangle">Отправить</button>
+                            </p>
+
+                        </form>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<HorizonSite.Models.Film>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.NameGenre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameFilm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IMDBRatffing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RottenRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinkTriller)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre.NameGenre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameFilm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        <td>
+            <img width="100" height="111" src=@Url.Content("~/Resourses/Films/"+item.Picture+"")>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMDBRatffing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RottenRating)
+        </td>
+        <td>
+            <a href="@item.LinkTriller" class="btn-trailers video-player">@item.LinkTriller</a>
+            @*@Html.DisplayFor(modelItem => item.LinkTriller)*@
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FilmId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FilmId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FilmId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,17 @@
+﻿@model  IEnumerable<HorizonSite.Models.Buying>
+    <br>
+    <br><br>
+    <br><br>
+    @foreach (var t in Model)
+    {
+    <fieldset>
+        <legend>Билет №@t.BuyId</legend>
+        <p><t>Фильм: @t.Session.Film.NameFilm</p>
+        <p><t>Дата: @t.Session.Date.Value.ToShortDateString()</p>
+        <p><t>Время: @t.Session.Time.Value.ToShortTimeString()</p>
+        <p><t>Зал: @t.Session.Hall.HallId @t.Session.Hall.NameHall</p>
+        <p><t>Ряд: @t.Seat.Row.Number</p>
+        <p><t>Место: @t.Seat.Number</p>
+    </fieldset>
+    <br>
+    }

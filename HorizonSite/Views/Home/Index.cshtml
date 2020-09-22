@@ -1,0 +1,363 @@
+﻿@model HorizonSite.Models.HomeIndexViewModels
+<div class="fullwidth-slider">
+    <div id="headerslider" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#headerslider" data-slide-to="0" class="active"></li>
+            <li data-target="#headerslider" data-slide-to="1"></li>
+            <li data-target="#headerslider" data-slide-to="2"></li>
+        </ol>
+        
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="fill" data-bg-image="@Url.Content("~/Resourses/Films/"+Model.LastThreeFilms.First().Picture+"")">
+                    <div class="bs-slider-overlay"></div>
+                    <div class="container movie-slider-container">
+                        <div class="row">
+                            <div class="col-sm-12 movie-slider-content">
+                                <div class="slider-content">
+                                    <ul class="subtitle" data-animation="animated bounceInRight">
+                                       
+                                            @if (Model.LastThreeFilms.First().GenreId != null)
+                                            {
+                                                <li>@Model.LastThreeFilms.First().Genre.NameGenre</li>
+                                            }
+                                        
+                                    </ul>
+                                    <div class="title" data-animation="animated bounceInRight">@Model.LastThreeFilms.First().NameFilm <i>@Model.LastThreeFilms.First().DateStart.Value.Year</i></div>
+                                    <div class="slide_right" data-animation="animated bounceInRight">
+                                        @*<div class="entry-actions">
+                                            <a href="https://vimeo.com/28177848" class="btn-trailers video-player">Смотреть триллер</a>
+                                            <a href="#order" class="btn-ticket order_btn ">Купить билет</a>
+                                        </div>*@
+                                        <div class="entry-actions">
+                                            <a href="@Model.LastThreeFilms.First().LinkTriller" class="btn-trailer video-player">Смотреть трейлер</a> 
+                                            <a href="~/Home/Single/@Model.LastThreeFilms.First().FilmId" class="btn-ticket">Перейти к заказу</a>
+                                        </div>
+                                        <ul class="award-logo">
+                                            <li><img src="@Url.Content("~/Content/images/header/icon1.png")" alt="icon"></li>
+                                            <li><img src="@Url.Content("~/Content/images/header/icon2.png")" alt="icon"></li>
+                                            <li><img src="@Url.Content("~/Content/images/header/icon3.png")" alt="icon"></li>
+                                            <li><img src="@Url.Content("~/Content/images/header/icon4.png")" alt="icon"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="chart-cirle">
+                                        <div class="chart-circle-l" data-animation="animated bounceInUp">
+                                            <div class="circle-chart" data-circle-width="7" data-percent="@((double)Model.LastThreeFilms.First().IMDBRatffing.Value * 10)" data-text="@Model.LastThreeFilms.First().IMDBRatffing">
+                                            </div>
+                                            <span>IMDB Ratffing</span>
+                                        </div>
+                                        <div class="chart-circle-r" data-animation="animated bounceInUp">
+                                            <div class="circle-chart" data-circle-width="7" data-percent="@((double)Model.LastThreeFilms.First().RottenRating.Value * 10)" data-text="@Model.LastThreeFilms.First().RottenRating">
+                                            </div>
+                                            <span>Rotten Rating</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @foreach (var item in Model.LastThreeFilms)
+            {
+                if (Model.LastThreeFilms.First().FilmId != item.FilmId)
+                {
+                <div class="item">
+                    <div class="fill" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")">
+                        <div class="bs-slider-overlay"></div>
+                        <div class="container movie-slider-container">
+                            <div class="row">
+                                <div class="col-sm-12 movie-slider-content">
+                                    <div class="slider-content">
+                                        <ul class="subtitle" data-animation="animated bounceInRight">
+                                                
+                                            <li>@Model.listNameGenre.Where(w=>w.GenreId == item.GenreId).Select(s=>s.NameGenre).FirstOrDefault()</li>
+
+                                        </ul>
+                                        <div class="title" data-animation="animated bounceInRight">@item.NameFilm <i>@item.DateStart.Value.Year</i></div>
+                                        <div class="slide_right" data-animation="animated bounceInRight">
+                                            <div class="entry-actions">
+                                                <a href="@item.LinkTriller" class="btn-trailer">Смотреть трейлер</a> 
+                                                <a href="~/Home/Single/@item.FilmId" class="btn-ticket">Перейти к заказу</a>
+                                            </div>
+                                            
+                                            <ul class="award-logo">
+                                                <li><img src="@Url.Content("~/Content/images/header/icon1.png")" alt="icon"></li>
+                                                <li><img src="@Url.Content("~/Content/images/header/icon2.png")" alt="icon"></li>
+                                                <li><img src="@Url.Content("~/Content/images/header/icon3.png")" alt="icon"></li>
+                                                <li><img src="@Url.Content("~/Content/images/header/icon4.png")" alt="icon"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="chart-cirle">
+                                            <div class="chart-circle-l" data-animation="animated bounceInUp">
+                                                <div class="circle-chart" data-circle-width="7" data-percent="@((double)item.IMDBRatffing.Value * 10)" data-text="@item.IMDBRatffing">
+                                                </div>
+                                                <span>IMDB Ratffing</span>
+                                            </div>
+                                            <div class="chart-circle-r" data-animation="animated bounceInUp">
+                                                <div class="circle-chart" data-circle-width="7" data-percent="@((double)item.RottenRating.Value * 10)" data-text="@item.RottenRating">
+                                                </div>
+                                                <span>Rotten Rating</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+           
+        </div>
+
+        <!-- Controls -->
+        <a class="carousel-control left" href="#headerslider" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="carousel-control right" href="#headerslider" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div>
+
+
+<section class="section-content">
+    <div class="container-fluid pv11 ">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="heading text-center">Фильмы в прокате сегодня</h3>
+                <div class="ticket-carousel pvt85">
+                    <div class="swiper-container carousel-container movie-images" data-col="5">
+                        <div class="swiper-wrapper">
+                            @foreach (var item in Model.RentedFilms)
+                            {
+                                <div class="swiper-slide">
+                                    <div class="movie-image" data-bg-image="@Url.Content("~/Resourses/Films/" + item.Picture + "")">
+                                        <div class="entry-hover">
+                                            <div class="entry-actions">
+                                                <a href="@item.LinkTriller" class="btn-trailers video-player">Смотреть трейлер</a>
+                                                <a href="~/Home/Single/@item.FilmId" class="btn-ticket">Перейти к заказу</a>
+                                            </div>
+                                        </div>
+                                        <div class="entry-desc">
+
+                                            <h3 class="entry-title">@item.NameFilm</h3>
+                                            <ul class="entry-date">
+                                                @foreach (var itemSesion in Model.listDateSession.Where(w => w.FilmId == item.FilmId && w.Date == DateTime.Now.Date))
+                                                {
+                                                    <li>@itemSesion.Time.Value.TimeOfDay.Hours:@itemSesion.Time.Value.TimeOfDay.Minutes</li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="section-content pvb0 bg-cover" data-bg-image="@Url.Content("~/Content/images/coming-bg.jpg")">
+
+        <div class="container pvt80">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="slider_coming" class="flexslider">
+                        <ul class="slides">
+                            @foreach (var item in Model.RentedFilms)
+                            {
+
+
+                                <li>
+                                    <article class="product-item hover-dark">
+                                        <div class="featured-image bg-cover">
+                                            <img src="@Url.Content("~/Resourses/Films/" + item.Picture + "")" alt="image" />
+                                            <a href="@item.LinkTriller" class="video-player"><i class="fa fa-play"></i></a>
+                                        </div>
+                                        <div class="entry-title">
+                                            <ul class="subtitle">
+                                                <li>@Model.listNameGenre.Where(w => w.GenreId == item.GenreId).Select(s => s.NameGenre).FirstOrDefault()</li>
+                                            </ul>
+                                            <a href="~/Home/Single/@item.FilmId" class="title">@item.NameFilm </a>
+                                            <div class="entry-date"><span>@item.DateStart.Value.Date.ToShortDateString()</span></div>
+                                            <div class="social-links">
+                                                <a href="javascript:;"><i class="fa fa-facebook"></i></a>
+                                                <a href="javascript:;"><i class="fa fa-twitter"></i></a>
+                                                <a href="javascript:;"><i class="fa fa-instagram"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="entry-desc">
+                                            <div class="row mh0">
+                                                <div class="col-md-2 col-sm-3 col-xs-12 comming_movie ph0">
+                                                    <img src="@Url.Content("~/Resourses/Films/" + item.Picture + "")" alt="movie">
+                                                </div>
+                                                <div class="col-md-8 col-sm-7 col-xs-12 entry-text phl3">
+                                                    <h3>Описание</h3>
+
+                                                    <p>@item.Company</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </article>
+                                </li>
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="carousel_coming" class="flexslider">
+                <ul class="slides">
+                    @foreach (var item in Model.RentedFilms)
+                    {
+                        <li class="thumb_item bg-cover">
+                            <div class="movie-image">
+                                <a href="#" class="btn fill">Выбран</a>
+                                <img src="@Url.Content("~/Resourses/Films/" + item.Picture + "")" class="wpc_img" alt="image" />
+                                <span>@item.DateStart.Value.ToShortDateString()</span>
+                                <div class="entry-desc">
+                                    <h3 class="entry-title">@item.NameFilm</h3>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-content service pvb0">
+        <div class="container  pv12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="heading text-center mb9">Вам понравится</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 ph0">
+                    <h2>IMAX®</h2>
+                    <p> IMAX® обеспечивает исключительные впечатления от просмотра фильмов с изображениями потрясающего размера и поразительной четкости.</p>
+                </div>
+                <div class="col-sm-4 ph0">
+                    <h2>REALD™ 3D</h2>
+                    <p>RealD™ Digital 3D это новое поколение развлечений с четкими, яркими и ультра-реалистичными изображениями.</p>
+                </div>
+                <div class="col-sm-4 ph0">
+                    <h2>Dolby®  Laboratories</h2>
+                    <p>(NYSE:DLB) является мировым лидером в области технологий, которые являются неотъемлемыми элементами лучших развлечений.</p>
+                </div>
+            </div>
+            <div class="row mt8">
+                <div class="col-sm-4 ph0">
+                    <h2>Great Environment</h2>
+                    <p> IMAX® обеспечивает исключительные впечатления от просмотра фильмов с изображениями потрясающего размера и поразительной четкости.</p>
+                </div>
+                <div class="col-sm-4 ph0">
+                    <h2>Entertainment Center</h2>
+                    <p>RealD™ Digital 3D это новое поколение развлечений с четкими, яркими и ультра-реалистичными изображениями.</p>
+                </div>
+                <div class="col-sm-4 ph0">
+                    <h2> So Much More...</h2>
+                    <p>(NYSE:DLB) является мировым лидером в области технологий, которые являются неотъемлемыми элементами лучших развлечений.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fullscreen-section bg-black pvb0">
+        <div class="container wpc-boxoffice pv8">
+            <div class="row">
+
+                <div class="col-sm-12 col-xs-12 ">
+                    <h3>Отзывы</h3>
+                    <div class="wpc-testimonails">
+                        <div class="swiper-container carousel-container">
+                            <div class="swiper-wrapper">
+                                @foreach (var item in Model.LastTwoReviews.ToList())
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="testimonial">
+                                            <h4>@item.Email</h4>
+
+                                            <div class="entry-meta">
+                                                <h4>@item.Date.Value.ToShortDateString()</h4>
+
+                                            </div>
+                                            <p>
+                                                @item.Text
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Footer {
+      
+        
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+          
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+             
+            <div class="col-md-6">
+                    <div class="widget">
+                        <h5 class="widget-title">Написать нам</h5>
+                        <form class="contact_form transparent">
+                            <div class="row">
+                                
+                                <div class="form-group">
+                                    @Html.Label("Имя", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-sm-12">
+                                        @Html.Editor("SNP", new { htmlAttributes = new { @class = "form-control"} })
+                                        @Html.ValidationMessageFor(model => model.SendMessage.SNP, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SendMessage.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-sm-12">
+                                        @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SendMessage.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Текст", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-sm-12 ">
+                                        @Html.Editor("Text", new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SendMessage.Text, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-8 col-md-10">
+                                        <input type="submit" value="Отправить" class="button fill rectangle" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        }
+    }

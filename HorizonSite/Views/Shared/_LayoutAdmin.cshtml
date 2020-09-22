@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>Horizon Cinema</title>
+    <meta name="keywords" content="HTML5,CSS3,HTML,Template,Themeton">
+    <meta name="description" content="Horizon Cinema">
+    <meta name="author" content="Themeton">
+
+
+    <!-- Linck -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/packages.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/default.css">
+
+</head>
+<body class="sticky-menu">
+    @Html.Partial("_LayoutHeaderPartical")
+    @RenderBody()
+    <!-- Maps -->
+
+
+    </section>
+    <!-- Footer -->
+    <section>
+        <footer id="footer">
+            <div class="container footer-container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-6">
+                        <div class="widget">
+                            <h5 class="widget-title">Меню</h5>
+                            <ul class="menu">
+                                <li><a href="/">Главная</a></li>
+                                <li><a href="/">Новости</a></li>
+                                <li><a href="#order" class="order_btn">О нас</a></li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                    
+
+                 
+
+                </div>
+            </div>
+            <div class="sub-footer">
+                <div class="container">
+                    <div class="row copyright-text">
+                        <div class="col-sm-12 text-center">
+                            <p class="mv3 mvt0">&copy; Авторские права 2017 Horizon. Все права защищены</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+    </div>
+
+
+
+
+
+    <!-- Include jQuery and Scripts -->
+    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/packages.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/scripts.min.js"></script>
+    <!-- jQuery easing plugin -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

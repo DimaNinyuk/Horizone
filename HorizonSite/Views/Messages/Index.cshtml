@@ -1,0 +1,69 @@
+﻿@model IEnumerable<HorizonSite.Models.Message>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SNP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CallTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Admin.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SNP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CallTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MessageId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MessageId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MessageId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,77 @@
+﻿@model  HorizonSite.Models.Session
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<style type="text/css">
+
+
+    label.ticket-place {
+        display: inline-table;
+        margin: 5px;
+        text-align: center;
+        color: #fff;
+        background: black;
+    }
+
+        label.ticket-place span {
+            display: block;
+            padding: 5px;
+            border: 2px solid orange;
+            border-radius: 5px;
+        }
+
+        label.ticket-place input[type="checkbox"] {
+            position: absolute;
+            left: -10000px;
+        }
+
+        label.ticket-place:hover span {
+            background: orange;
+            cursor: pointer;
+        }
+
+        label.ticket-place input[type="checkbox"]:checked + span {
+            color: #fff;
+            background: orange;
+        }
+
+        label.ticket-place input[type="checkbox"]:disabled + span {
+            color: #fff;
+            background: red;
+        }
+</style>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <img src="@Url.Content("~/Content/images/screen.jpg")" />
+        </div>
+    </div>
+
+        @using (Html.BeginForm("Buy", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="sessionid" value="@Model.SessionId"/>
+            foreach (var row in Model.Hall.Rows)
+            {
+            <div class="row justify-content-md-center">
+                <h5> <span class="badge badge-secondary">Ряд № @row.Number</span></h5>
+                <div class="col-md-auto">
+                    @foreach (var seats in row.Seats)
+                    {
+                        if (seats.Buyings.Where(b => b.SessionId == Model.SessionId && b.RowId == row.RowId).Count() > 0)
+                        {<label class="ticket-place"><input type="checkbox" name="places" value="@seats.RowId:@seats.SeatId" disabled><span>@seats.Number</span></label>}
+                        else
+                        { <label class="ticket-place"><input type="checkbox" name="places" value="@seats.RowId:@seats.SeatId"><span>@seats.Number</span></label>}
+                    }
+                </div>
+            </div>
+            }
+            <br>
+            <div class="row justify-content-md-center">
+                <input type="submit" class="btn btn-warning" value="Купить">
+                <div class="col-md-auto">
+                </div>
+            </div>
+        }
+
+</div>
